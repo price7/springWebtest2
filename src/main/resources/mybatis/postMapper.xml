@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.compose.coffee.dao.PostDAO">
+    <select id="selectAll" parameterType="map" resultType="com.compose.coffee.dto.PostDTO">
+        SELECT * FROM (
+            SELECT
+                postNumber,
+                title,
+                writer,
+                contents,
+                postdate,
+                views,
+                    ROW_NUMBER() OVER (ORDER BY postdate) AS row_num
+            FROM board
+            )
+        WHERE row_num BETWEEN #{startNo} AND #{endNo}
+    </select>
+
+    <select id="countAll" resultType="int">
+        select count(*)
+        from board
+    </select>
+</mapper>
