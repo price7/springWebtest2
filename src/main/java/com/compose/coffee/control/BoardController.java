@@ -41,6 +41,7 @@ public class BoardController {
         
         log.info(totalPost + " : 총 게시물의 수");
 
+
         // 총 페이지의 수
         int totalPage = totalPost/pageSize;
         
